@@ -5,6 +5,17 @@ var dialogo = 0
 var cantidad = 0
 var velocidad = 10
 var ultimoCaracter = 0
+var textoActual
+
+var dialogo1 = 0
+var cantidad1 = 0
+var ultimoCaracter1 = 0
+var textoActual1
+
+var dialogo3 = 0
+var cantidad3 = 0
+var ultimoCaracter3 = 0
+var textoActual3
 
 var pantalla = 0;
 
@@ -15,6 +26,19 @@ var posx1 = 800
 //pantalla 2
 var tamx1 = 0
 var tamy1 = 0
+
+//pantalla 3
+var transparencia1 = 0
+//laucha
+var distancia1 = dist(mouseX, mouseY, 275, 335)
+//mur
+var distancia2 = dist(mouseX, mouseY, 207, 124)
+//palo
+var distancia3 = dist(mouseX, mouseY, 375, 120)
+//babo
+var distancia4 = dist(mouseX, mouseY, 568, 130)
+//sapo
+var distancia5 = dist(mouseX, mouseY, 438, 295)
 
 function preload() {
     imagen[0] = loadImage("data/fondo1.png");
@@ -74,7 +98,7 @@ function setup() {
 function draw() {
 
     ellipse(mouseX, mouseY, 100, 100);
-    console.log("x=", round(mouseX), "y=", round(mouseY), "pantalla=", pantalla);
+    console.log("x=", round(mouseX), "y=", round(mouseY), "pantalla=", pantalla, cantidad);
 
 
     switch (pantalla) {
@@ -101,7 +125,7 @@ function draw() {
             break;
 
         case 1:
-            var textoActual = texto[dialogo]
+            textoActual = texto[dialogo]
 
             if (millis() - ultimoCaracter > velocidad && cantidad < textoActual.length) {
 
@@ -158,14 +182,237 @@ function draw() {
             break;
 
         case 2:
+            textoActual = texto[dialogo];
 
             image(imagen[2], 0, 0)
 
-            if (tamx1 < )    
+
+            if (tamx1 < 500) {
+                tamx1 += 10
+
+                if (tamy1 < 80) {
+                    tamy1 += 5
+                }
+            } else if (tamx1 == 500) {
+                if (millis() - ultimoCaracter > velocidad &&
+                    cantidad < textoActual.length) {
+                    cantidad++;
+                    ultimoCaracter = millis();
+                }
+            }
 
             rectMode(CENTER)
-            fill(0,200)
-            rect(width/2,height/2,tamx1,tamy1)
+            fill(0, 200)
+            stroke(255)
+            rect(width / 2, height / 2, tamx1, tamy1, 20)
+
+            if (tamx1 == 500) {
+                noStroke()
+                textAlign(LEFT)
+                fill(255)
+                text(textoActual.substring(0, cantidad), 180, 230)
+            }
+
+            break;
+
+        case 3:
+            textoActual = texto[dialogo];
+            imageMode(CORNER)
+            image(imagen[2], 0, 0)
+
+            if (pantalla == 3 && transparencia1 < 255) {
+                transparencia1 += 10;
+            }
+
+            tint(255, transparencia1)
+            imageMode(CENTER);
+            //babosa
+            image(imagen[5], 570, 135)
+            //sapo
+            image(imagen[6], 440, 300)
+            //laucha
+            image(imagen[7], 280, 345)
+            //murcielago
+            image(imagen[3], 213, 129)
+            //paloma
+            image(imagen[4], 370, 120)
+
+            noTint()
+
+            break;
+
+        case 4:
+            // Cada personaje tiene su propio texto
+            textoActual = texto[dialogo];
+            textoActual1 = texto[dialogo1];
+
+            imageMode(CORNER);
+            image(imagen[16], 0, 0);
+
+            imageMode(CENTER);
+            image(imagen[17], 314, 300);
+
+            // DIÁLOGO DE LA MICHA
+            if (cantidad < textoActual.length &&
+                millis() - ultimoCaracter > velocidad) {
+
+                cantidad++;
+                ultimoCaracter = millis();
+            }
+
+            // Cuadro de diálogo de la Micha
+            rectMode(CORNER);
+            fill(0, 100);
+            stroke(255);
+            rect(15, 15, 775, 100, 20);
+
+            // Texto de la Micha
+            fill(255);
+            noStroke();
+            textAlign(LEFT, TOP);
+            text(textoActual.substring(0, cantidad), 30, 30, 745, 75);
+
+
+            // DIÁLOGO DEL OTRO PERSONAJE
+            // Empieza cuando la Micha termina
+            if (cantidad >= textoActual.length) {
+
+                if (cantidad1 < textoActual1.length &&
+                    millis() - ultimoCaracter1 > velocidad) {
+
+                    cantidad1++;
+                    ultimoCaracter1 = millis();
+                }
+
+                // Segundo cuadro de diálogo
+                rectMode(CORNER);
+                fill(0, 100);
+                stroke(255);
+                rect(15, 340, 775, 100, 20);
+
+                // Texto del otro personaje
+                fill(255);
+                noStroke();
+                text(textoActual1.substring(0, cantidad1),
+                    30, 350, 745, 75);
+            }
+
+            break;
+
+        case 5:
+            // Cada personaje tiene su propio texto
+            textoActual = texto[dialogo];
+            textoActual1 = texto[dialogo1];
+
+            imageMode(CORNER);
+            image(imagen[8], 0, 0);
+
+            imageMode(CENTER);
+            image(imagen[9], 314, 250);
+
+            // DIÁLOGO DE LA MICHA
+            if (cantidad < textoActual.length &&
+                millis() - ultimoCaracter > velocidad) {
+
+                cantidad++;
+                ultimoCaracter = millis();
+            }
+
+            // Cuadro de diálogo de la Micha
+            rectMode(CORNER);
+            fill(0, 100);
+            stroke(255);
+            rect(15, 15, 775, 100, 20);
+
+            // Texto de la Micha
+            fill(255);
+            noStroke();
+            textAlign(LEFT, TOP);
+            text(textoActual.substring(0, cantidad), 30, 30, 745, 75);
+
+            // DIÁLOGO DEL OTRO PERSONAJE
+            // Empieza cuando la Micha termina
+            if (cantidad >= textoActual.length) {
+
+                if (cantidad1 < textoActual1.length &&
+                    millis() - ultimoCaracter1 > velocidad) {
+
+                    cantidad1++;
+                    ultimoCaracter1 = millis();
+                }
+
+                // Segundo cuadro de diálogo
+                rectMode(CORNER);
+                fill(0, 100);
+                stroke(255);
+                rect(15, 340, 775, 100, 20);
+
+                // Texto del otro personaje
+                fill(255);
+                noStroke();
+                text(textoActual1.substring(0, cantidad1),
+                    30, 350, 745, 75);
+            }
+
+            break;
+
+            case 6:
+
+    // Cada personaje tiene su propio texto
+            textoActual = texto[dialogo];
+            textoActual1 = texto[dialogo1];
+
+            imageMode(CORNER);
+            image(imagen[10], 0, 0);
+
+            imageMode(CENTER);
+            image(imagen[11], 314, 190);
+
+            // DIÁLOGO DE LA MICHA
+            if (cantidad < textoActual.length &&
+                millis() - ultimoCaracter > velocidad) {
+
+                cantidad++;
+                ultimoCaracter = millis();
+            }
+
+            // Cuadro de diálogo de la Micha
+            rectMode(CORNER);
+            fill(0, 100);
+            stroke(255);
+            rect(15, 15, 775, 100, 20);
+
+            // Texto de la Micha
+            fill(255);
+            noStroke();
+            textAlign(LEFT, TOP);
+            text(textoActual.substring(0, cantidad), 30, 30, 745, 75);
+
+            // DIÁLOGO DEL OTRO PERSONAJE
+            // Empieza cuando la Micha termina
+            if (cantidad >= textoActual.length) {
+
+                if (cantidad1 < textoActual1.length &&
+                    millis() - ultimoCaracter1 > velocidad) {
+
+                    cantidad1++;
+                    ultimoCaracter1 = millis();
+                }
+
+                // Segundo cuadro de diálogo
+                rectMode(CORNER);
+                fill(0, 100);
+                stroke(255);
+                rect(15, 340, 775, 100, 20);
+
+                // Texto del otro personaje
+                fill(255);
+                noStroke();
+                text(textoActual1.substring(0, cantidad1),
+                    30, 350, 745, 75);
+            }
+
+
 
             break;
     }
@@ -174,28 +421,109 @@ function draw() {
 
 function mouseClicked() {
 
+    //distancias
+    //laucha
+    var distancia1 = dist(mouseX, mouseY, 275, 335)
+    //mur
+    var distancia2 = dist(mouseX, mouseY, 207, 124)
+    //palo
+    var distancia3 = dist(mouseX, mouseY, 375, 120)
+    //babo
+    var distancia4 = dist(mouseX, mouseY, 568, 130)
+    //sapo
+    var distancia5 = dist(mouseX, mouseY, 438, 295)
 
 
     if (pantalla == 0) {
-        if (mouseX > 250 && mouseX < 550 && mouseY > 260 && mouseY < 315) {
-            pantalla = 1
+        if (mouseX > 250 && mouseX < 550 &&
+            mouseY > 260 && mouseY < 315) {
+            pantalla = 1;
         }
 
     } else if (pantalla == 1) {
-
-        var textoActual = texto[dialogo];
-
         if (cantidad < textoActual.length) {
-            cantidad = textoActual.length
+            cantidad = textoActual.length;
         } else {
+            dialogo = 1;
+            cantidad = 0;
+            ultimoCaracter = millis();
             pantalla = 2;
         }
+    } else if (pantalla == 2) {
+        if (cantidad < textoActual.length) {
+            cantidad = textoActual.length;
+        } else {
+            dialogo = 2;
+            cantidad = 0;
+            ultimoCaracter = millis();
+            pantalla = 3;
+        }
+    } else if (pantalla == 3 && distancia1 < 50) {
+        pantalla = 4
 
-           
-        
+        dialogo = 2;
+        cantidad = 0;
+        ultimoCaracter = millis();
 
+        dialogo1 = 3;
+        cantidad1 = 0;
+        ultimoCaracter1 = millis();
 
-    }
+    } else if (pantalla == 4) {
 
+        if (cantidad < textoActual.length) {
+            cantidad = textoActual.length;
 
+        } else if (cantidad1 < textoActual1.length) {
+            cantidad1 = textoActual1.length;
+
+        } else {
+            pantalla = 3;
+        }
+    } else if (pantalla == 3 && distancia2 < 50) {
+        pantalla = 5;
+
+        dialogo = 2;
+        cantidad = 0;
+        ultimoCaracter = millis();
+
+        dialogo1 = 4;
+        cantidad1 = 0;
+        ultimoCaracter1 = millis();
+
+    }  else if (pantalla == 5) {
+
+        if (cantidad < textoActual.length) {
+            cantidad = textoActual.length;
+
+        } else if (cantidad1 < textoActual1.length) {
+            cantidad1 = textoActual1.length;
+
+        } else {
+            pantalla = 3;
+        }
+    }  else if (pantalla == 3 && distancia3 < 50) {
+        pantalla = 6;
+
+        dialogo = 2;
+        cantidad = 0;
+        ultimoCaracter = millis();
+
+        dialogo1 = 5;
+        cantidad1 = 0;
+        ultimoCaracter1 = millis();
+
+    }  else if (pantalla == 6) {
+
+        if (cantidad < textoActual.length) {
+            cantidad = textoActual.length;
+
+        } else if (cantidad1 < textoActual1.length) {
+            cantidad1 = textoActual1.length;
+
+        } else {
+            pantalla = 3;
+        }
+    }  
 }
+
