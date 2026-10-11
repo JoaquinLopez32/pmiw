@@ -563,7 +563,7 @@ function draw() {
             fill(0,100)
             rectMode(CENTER)
             stroke(255)
-            rect(width/2, height/2, 500, 80)
+            rect(width/2, height/2, 500, 80,20)
             
             // DIÁLOGO DE LA MICHA
             if (cantidad < textoActual.length &&
@@ -577,7 +577,27 @@ function draw() {
             fill(255);
             noStroke();
             textAlign(LEFT, TOP);
-            text(textoActual.substring(0, cantidad), 400, 200,450,80);
+            text(textoActual.substring(0, cantidad), 400, 240,450,80);
+
+            break;
+            
+            case 10:
+            textoActual = texto[dialogo];
+
+            imageMode(CORNER)
+            image(imagen[2],0,0)
+
+            imageMode(CENTER);
+            //babosa
+            image(imagen[5], 570, 135)
+            //sapo
+            image(imagen[6], 440, 300)
+            //laucha
+            image(imagen[7], 280, 345)
+            //murcielago
+            image(imagen[3], 213, 129)
+            //paloma
+            image(imagen[4], 370, 120)
 
             break;
 
@@ -758,10 +778,17 @@ function mouseClicked() {
             pantalla = 3;
         } 
     } else if (pantalla == 9){
-            if (cantidad < textoActual.length) {
-            cantidad = textoActual.length;
-        }
-            
-        }
-}
 
+    if (cantidad < textoActual.length) {
+        cantidad = textoActual.length;
+    } else {
+
+        
+        dialogo = 9
+        cantidad = 0
+        ultimoCaracter = millis()
+        pantalla = 10
+
+    }
+}
+}
